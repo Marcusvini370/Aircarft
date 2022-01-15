@@ -1,7 +1,6 @@
 package com.br.aircraft.api.domain.model;
 
 import java.io.Serializable;
-import java.time.LocalTime;
 import java.time.OffsetDateTime;
 
 import javax.persistence.Column;
@@ -10,8 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;

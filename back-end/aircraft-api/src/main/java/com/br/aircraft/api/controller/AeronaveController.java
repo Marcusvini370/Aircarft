@@ -17,10 +17,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.br.aircraft.api.assembler.AeronaveDtoAssembler;
-import com.br.aircraft.api.assembler.AeronaveInputDissasembler;
 import com.br.aircraft.api.domain.dto.AeronaveDTO;
 import com.br.aircraft.api.domain.dto.input.AeronaveInput;
-import com.br.aircraft.api.domain.model.Aeronave;
 import com.br.aircraft.api.domain.repository.AeronaveRepository;
 import com.br.aircraft.api.domain.service.RegisterAeronave;
 
@@ -33,9 +31,6 @@ public class AeronaveController {
 
 	@Autowired
 	private AeronaveDtoAssembler aeronaveDtoAssembler;
-
-	@Autowired
-	private AeronaveInputDissasembler aeronaveInputDissasembler;
 
 	@Autowired
 	private RegisterAeronave registerAeronave;
@@ -52,21 +47,23 @@ public class AeronaveController {
 
 	@PostMapping
 	public AeronaveDTO saveAeronave(@RequestBody @Valid AeronaveInput aeronaveInput) {
-		Aeronave aeronave = aeronaveInputDissasembler.toDomainObject(aeronaveInput);
-		return aeronaveDtoAssembler.toModel(registerAeronave.save(aeronave));
+		return registerAeronave.save(aeronaveInput);
 	}
 
 	@PutMapping("/{id}")
 	public AeronaveDTO updateAeronave(@PathVariable Long id, @RequestBody @Valid AeronaveInput aeronaveInput) {
-		Aeronave aeronaveAtual = registerAeronave.BuscarOuFalhar(id);
-		aeronaveInputDissasembler.copyToDomainObject(aeronaveInput, aeronaveAtual);
-		return aeronaveDtoAssembler.toModel(registerAeronave.save(aeronaveAtual));
+		return registerAeronave.update(id, aeronaveInput);
 	}
 
 	@DeleteMapping("/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	public void deleteById(@PathVariable Long id) {
 		registerAeronave.delete(id);
+	}
+	
+	@GetMapping("/sellers")
+	public List<AeronaveDTO> findSellers() {
+		return aeronaveDtoAssembler.toCollectionModel(aeronaveRepository.findVendidosByAeronave());
 	}
 
 }
