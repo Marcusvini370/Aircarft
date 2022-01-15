@@ -1,6 +1,8 @@
 package com.br.aircraft.api.domain.service;
 
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,7 @@ import com.br.aircraft.api.domain.model.Aeronave;
 import com.br.aircraft.api.domain.repository.AeronaveRepository;
 
 @Service
-public class RegisterAeronave {
+public class AeronaveServiceImpl implements AeronaveService{
 	
 	private static final String MSG_AERONAVE_NAO_ENCOTNADA = "Não existe um cadastro de aeronave com código %d";
 	
@@ -28,22 +30,35 @@ public class RegisterAeronave {
 	
 	@Autowired
 	private AeronaveDtoAssembler aeronaveDtoAssembler;
-
 	
+	@Override
+	@Transactional
+	public List<AeronaveDTO> findAll() {
+		return aeronaveDtoAssembler.toCollectionModel(aeronaveRepository.findAll());
+	}	
+	
+	@Override
+	@Transactional
+	public AeronaveDTO findById(Long id) {
+		return aeronaveDtoAssembler.toModel(BuscarOuFalhar(id));
+	}
+	
+	@Override
 	@Transactional
 	public AeronaveDTO save(AeronaveInput aeronaveInput) {
 		Aeronave aeronave = aeronaveInputDissasembler.toDomainObject(aeronaveInput);
 		return  aeronaveDtoAssembler.toModel(aeronaveRepository.save(aeronave));
 	}
 	
+	@Override
 	@Transactional
-	public AeronaveDTO update(Long id,AeronaveInput aeronaveInput) {
+	public AeronaveDTO update(Long id, AeronaveInput aeronaveInput) {
 		Aeronave aeronaveAtual = BuscarOuFalhar(id);
 		aeronaveInputDissasembler.copyToDomainObject(aeronaveInput, aeronaveAtual);
 		return  aeronaveDtoAssembler.toModel(aeronaveRepository.save(aeronaveAtual));
 	}
 	
-	
+	@Override
 	@Transactional
 	public void delete(Long id) {
 		try {
@@ -59,6 +74,5 @@ public class RegisterAeronave {
 		return aeronaveRepository.findById(id).orElseThrow(
 				() -> new AeronaveNotFoundException(String.format(MSG_AERONAVE_NAO_ENCOTNADA, id)));
 	}
-	
-	
+
 }
