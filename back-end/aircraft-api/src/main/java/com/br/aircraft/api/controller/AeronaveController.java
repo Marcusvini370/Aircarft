@@ -2,12 +2,10 @@ package com.br.aircraft.api.controller;
 
 import java.util.List;
 
-
-import java.util.Optional;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,72 +27,46 @@ import com.br.aircraft.api.domain.service.RegisterAeronave;
 @RestController
 @RequestMapping(value = "/aeronaves")
 public class AeronaveController {
-	
+
 	@Autowired
 	private AeronaveRepository aeronaveRepository;
-	
+
 	@Autowired
 	private AeronaveDtoAssembler aeronaveDtoAssembler;
-	
+
 	@Autowired
 	private AeronaveInputDissasembler aeronaveInputDissasembler;
-	
+
 	@Autowired
 	private RegisterAeronave registerAeronave;
-	
-	
+
 	@GetMapping
-	public List<AeronaveDTO> findAll(){
+	public List<AeronaveDTO> findAll() {
 		return aeronaveDtoAssembler.toCollectionModel(aeronaveRepository.findAll());
 	}
-	
+
 	@GetMapping("/{id}")
-	public ResponseEntity<Aeronave> findById(@PathVariable Long id) {
-		
-		Aeronave aeronave = registerAeronave.find(id);
-		
-		if(aeronave != null) {
-			return  ResponseEntity.ok(aeronave);
-		}
-		
-		return ResponseEntity.notFound().build();
-		
+	public AeronaveDTO findById(@PathVariable Long id) {
+		return aeronaveDtoAssembler.toModel(registerAeronave.BuscarOuFalhar(id));
 	}
-	
+
 	@PostMapping
-	public AeronaveDTO saveAeronave(@RequestBody AeronaveInput aeronaveInput ) {
-		
+	public AeronaveDTO saveAeronave(@RequestBody @Valid AeronaveInput aeronaveInput) {
 		Aeronave aeronave = aeronaveInputDissasembler.toDomainObject(aeronaveInput);
-		
-		aeronave = registerAeronave.save(aeronave);
-		
-		return aeronaveDtoAssembler.toModel(aeronave);
+		return aeronaveDtoAssembler.toModel(registerAeronave.save(aeronave));
 	}
-	
+
 	@PutMapping("/{id}")
-	public ResponseEntity<Aeronave> updateAeronave(@PathVariable Long id, @RequestBody AeronaveInput aeronaveInput ) {
-		Aeronave aeronaveAtual = registerAeronave.find(id);
-		
-		if(aeronaveAtual != null) {
-			
-			aeronaveInputDissasembler.copyToDomainObject(aeronaveInput, aeronaveAtual);
-			
-			aeronaveAtual = registerAeronave.save(aeronaveAtual);
-			
-			return ResponseEntity.ok(aeronaveAtual);
-		}
-		
-			return ResponseEntity.notFound().build();
-		
+	public AeronaveDTO updateAeronave(@PathVariable Long id, @RequestBody @Valid AeronaveInput aeronaveInput) {
+		Aeronave aeronaveAtual = registerAeronave.BuscarOuFalhar(id);
+		aeronaveInputDissasembler.copyToDomainObject(aeronaveInput, aeronaveAtual);
+		return aeronaveDtoAssembler.toModel(registerAeronave.save(aeronaveAtual));
 	}
-	
+
 	@DeleteMapping("/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	public void deleteById(@PathVariable Long id) {
-		 aeronaveRepository.deleteById(id);
+		registerAeronave.delete(id);
 	}
-	
-	
-	
 
 }
