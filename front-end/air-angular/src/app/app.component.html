@@ -70,6 +70,32 @@
       </form>
 
 
+      <table class="table table-striped mt-5">
+
+        <thead class="thead-dark">
+          <th scope="col">ID</th>
+          <th scope="col">Marca</th>
+          <th scope="col">Modelo</th>
+          <th scope="col">Ano</th>
+          <th scope="col">Vendido</th>
+          <th scope="col">Excluir</th>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let aeronave of aeronaves">
+          <td>{{aeronave.id}}</td>
+          <td>{{aeronave.marca}}</td>
+          <td>{{aeronave.nome}}</td>
+          <td>{{aeronave.ano}}</td>
+          <td>{{aeronave.vendido}}</td>
+          <td><button (click)="deleteAeronave(aeronave.id)" class="btn btn-primary">Delete</button></td>
+
+        </tr>
+        </tbody>
+    </table>
+
+
+
 </body>
 </html>
 
