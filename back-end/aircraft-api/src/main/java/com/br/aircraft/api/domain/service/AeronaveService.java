@@ -10,9 +10,9 @@ public interface AeronaveService {
 	
 	List<AeronaveDTO> findAll();
 	AeronaveDTO findById(Long id);
-	AeronaveDTO	save(AeronaveInput aeronaveInput); 
 	AeronaveDTO update(Long id, AeronaveInput aeronaveInput);
 	void delete(Long id);
+	AeronaveDTO save(AeronaveInput aeronaveInput);
 	
 
 }

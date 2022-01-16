@@ -13,14 +13,17 @@ import com.br.aircraft.api.assembler.AeronaveDtoAssembler;
 import com.br.aircraft.api.assembler.AeronaveInputDissasembler;
 import com.br.aircraft.api.domain.dto.AeronaveDTO;
 import com.br.aircraft.api.domain.dto.input.AeronaveInput;
+import com.br.aircraft.api.domain.exception.AeronaveMarcaInvalidException;
 import com.br.aircraft.api.domain.exception.AeronaveNotFoundException;
 import com.br.aircraft.api.domain.model.Aeronave;
+import com.br.aircraft.api.domain.model.EnumMarca;
 import com.br.aircraft.api.domain.repository.AeronaveRepository;
 
 @Service
 public class AeronaveServiceImpl implements AeronaveService{
 	
 	private static final String MSG_AERONAVE_NAO_ENCOTNADA = "Não existe um cadastro de aeronave com código %d";
+	private static final String MSG_AERONAVE_MARCA_ERRADA = "O nome da marca '%s' foi digitado incorretamente, por favor corrija e tente novamente. ";
 	
 	@Autowired
 	private AeronaveRepository aeronaveRepository;
@@ -47,7 +50,12 @@ public class AeronaveServiceImpl implements AeronaveService{
 	@Transactional
 	public AeronaveDTO save(AeronaveInput aeronaveInput) {
 		Aeronave aeronave = aeronaveInputDissasembler.toDomainObject(aeronaveInput);
-		return  aeronaveDtoAssembler.toModel(aeronaveRepository.save(aeronave));
+		
+		if (EnumMarca.validarMarca(aeronaveInput.getMarca())) {
+			return  aeronaveDtoAssembler.toModel(aeronaveRepository.save(aeronave));
+		}
+		
+		throw new AeronaveMarcaInvalidException(String.format(MSG_AERONAVE_MARCA_ERRADA, aeronaveInput.getMarca()));
 	}
 	
 	@Override
