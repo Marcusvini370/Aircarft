@@ -6,6 +6,12 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,12 +24,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.br.aircraft.api.assembler.AeronaveDtoAssembler;
 import com.br.aircraft.api.domain.dto.AeronaveDTO;
 import com.br.aircraft.api.domain.dto.input.AeronaveInput;
-import com.br.aircraft.api.domain.dto.search.GrupoDecadaDTO;
-import com.br.aircraft.api.domain.dto.search.GrupoMarcaDTO;
-import com.br.aircraft.api.domain.dto.search.GrupoNaoVendidosDTO;
+import com.br.aircraft.api.domain.dto.search.GrupoDTO;
+import com.br.aircraft.api.domain.dto.search.GrupoNaoVendidasDTO;
 import com.br.aircraft.api.domain.dto.search.GrupoSemanaDTO;
+import com.br.aircraft.api.domain.model.Aeronave;
 import com.br.aircraft.api.domain.repository.AeronaveRepository;
 import com.br.aircraft.api.domain.service.AeronaveService;
 
@@ -35,14 +42,13 @@ public class AeronaveController {
 	private AeronaveRepository aeronaveRepository;
 
 	private final AeronaveService aeronaveService;
-
+	
 	public AeronaveController(AeronaveService aeronaveService) {
 		this.aeronaveService = aeronaveService;
-
 	}
 
 	@GetMapping
-	public ResponseEntity<List<AeronaveDTO>> findAll() {
+	public ResponseEntity<List<AeronaveDTO>>   findAll() {
 		return ResponseEntity.ok(aeronaveService.findAll());
 	}
 
@@ -69,23 +75,23 @@ public class AeronaveController {
 	}
 
 	@GetMapping("/registro-semanal")
-	public List<GrupoSemanaDTO> findSellers() {
+	public GrupoSemanaDTO findRegistroSemanal() {
 		OffsetDateTime dataDiasAtras = OffsetDateTime.now().minusDays(7);
 		return aeronaveRepository.aeronavesRegistradasSemana(dataDiasAtras);
 	}
 
 	@GetMapping("/marca-quantidade")
-	public List<GrupoMarcaDTO> findSellers2() {
+	public List<GrupoDTO> findMarcaQuantidade() {
 		return aeronaveRepository.aeronaveMarcaAndQuantidade();
 	}
 
 	@GetMapping("/decada")
-	public List<GrupoDecadaDTO> finddecada() {
+	public List<GrupoDTO> findDecada() {
 		return aeronaveRepository.aeronavesPorDecada();
 	}
 
 	@GetMapping("/no-sellers")
-	public List<GrupoNaoVendidosDTO> findSellerst() {
+	public GrupoNaoVendidasDTO findNoSellers() {
 		return aeronaveRepository.aeronavesNaoVendidas();
 	}
 

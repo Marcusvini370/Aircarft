@@ -1,6 +1,6 @@
 package com.br.aircraft.api.domain.dto.search;
 
-public interface GrupoDecadaDTO {
+public interface GrupoDTO {
 	
 	String getGrupo();
 	Integer getTotal();

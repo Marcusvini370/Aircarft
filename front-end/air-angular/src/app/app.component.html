@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,90 +8,6 @@
   <title>Document</title>
 </head>
 <body>
-
-  <h1 class="text-center mt-5">Gestão de Aeronaves</h1>
-
-  <form #formValidation="ngForm" >
-
-    <div class="form-row">
-
-    <div class="form-group col-md-6 offset-md-3">
-      <label for="marca">Marca</label>
-      <span class="text-danger"> *</span>
-      <select  id="marca" name="marca"
-         class="form-control" required="true">
-        <option>Airbus</option>
-        <option>Embraer</option>
-        <option>McDonnel Douglas</option>
-        <option>Boeing</option>
-
-      </select>
-    </div>
-    </div>
-
-    <div class="form-row">
-    <div class="form-group col-md-6 offset-md-3">
-    <label for="nome">Nome</label>
-    <span  class="text-danger"> *</span>
-    <input type="text"   name="Nome" id="nome" class="form-control" required="true" autocomplete="false"/>
-    </div>
-
-    </div>
-
-    <div class="form-row">
-
-    <div class="form-group col-md-3 offset-md-3">
-      <label for="ano">Ano</label>
-      <span class="text-danger" > *</span>
-      <input type="number" id="ano" name=ano class="form-control" required="true" autocomplete="false" min="4" max="4"/>
-    </div>
-
-    <div class="form-group col-md-3 offset-md-0">
-      <label for="vendido">Vendido</label>
-      <span class="text-danger"> *</span>
-      <select  id="vendido" name="vendido"
-         class="form-control" required="true">
-        <option>True</option>
-        <option>False</option>
-      </select>
-    </div>
-
-    </div>
-
-
-     <div class="form-row">
-      <div class="form-group col-md-6 offset-md-3">
-        <label for="floatingTextarea">Descrição</label>
-        <textarea class="form-control" name="descricao" placeholder="Descrição da aronave" id="floatingTextarea"></textarea>
-
-      </div>
-      </div>
-      </form>
-
-
-      <table class="table table-striped mt-5">
-
-        <thead class="thead-dark">
-          <th scope="col">ID</th>
-          <th scope="col">Marca</th>
-          <th scope="col">Modelo</th>
-          <th scope="col">Ano</th>
-          <th scope="col">Vendido</th>
-          <th scope="col">Excluir</th>
-        </thead>
-
-        <tbody>
-          <tr *ngFor="let aeronave of aeronaves">
-          <td>{{aeronave.id}}</td>
-          <td>{{aeronave.marca}}</td>
-          <td>{{aeronave.nome}}</td>
-          <td>{{aeronave.ano}}</td>
-          <td>{{aeronave.vendido}}</td>
-          <td><button (click)="deleteAeronave(aeronave.id)" class="btn btn-primary">Delete</button></td>
-
-        </tr>
-        </tbody>
-    </table>
 
 
 

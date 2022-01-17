@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestão de Aeronaves</title>
+</head>
+<body>
+
+  <h1 class="text-center mt-5">Gestão de Aeronaves</h1>
+  <form #formValidation="ngForm" >
+    <div class="form-row">
+
+    <div class="form-group col-md-6 offset-md-3">
+      <label for="marca">Marca</label>
+      <span class="text-danger" *ngIf="marcaValidate.invalid"> *</span>
+      <select #marcaValidate="ngModel" id="marca" name="marca" [(ngModel)]="aeronave.marca"
+         class="form-control" required="true">
+        <option selected></option>
+        <option [ngValue]="marca" *ngFor="let marca of listaMarcas">{{marca}}</option>
+
+      </select>
+    </div>
+    </div>
+
+    <div class="form-row">
+    <div class="form-group col-md-6 offset-md-3">
+    <label for="nome">Nome</label>
+    <span  class="text-danger" *ngIf="nomeValidate.invalid"> *</span>
+    <input type="text" #nomeValidate="ngModel" [(ngModel)]="aeronave.nome"   name="Nome" id="nome" class="form-control" required="true" autocomplete="false"/>
+    </div>
+
+    </div>
+
+    <div class="form-row">
+
+    <div class="form-group col-md-3 offset-md-3">
+      <label for="ano">Ano</label>
+      <span class="text-danger" *ngIf="anoValidate.invalid"> *</span>
+      <input type="number" #anoValidate="ngModel" [(ngModel)]="aeronave.ano" id="ano" name=ano class="form-control" required="true" autocomplete="false" min="4" max="4"/>
+    </div>
+
+    <div class="form-group col-md-3 offset-md-0">
+      <label for="vendido">Vendido</label>
+      <span class="text-danger" *ngIf="vendidoValidate.invalid"> *</span>
+      <select #vendidoValidate="ngModel"  id="vendido" name="vendido" [(ngModel)]="aeronave.vendido"
+         class="form-control" required="true">
+        <option [ngValue]="true">Vendido</option>
+        <option [ngValue]="false">Não Vendido</option>
+      </select>
+    </div>
+
+    </div>
+
+     <div class="form-row">
+      <div class="form-group col-md-6 offset-md-3">
+        <label for="floatingTextarea">Descrição</label>
+        <textarea class="form-control" [(ngModel)]="aeronave.descricao" name="descricao" placeholder="Descrição da aronave" id="floatingTextarea"></textarea>
+
+      </div>
+      </div>
+
+      <div class="form-row ">
+        <div class="form-group col-md-4 offset-md-3">
+
+          <button type="submit" (click)="salvarAeronave()"  class="btn btn-success" >
+            Salvar
+          </button>
+
+          <button type="button" (click)="novo()" class="btn btn-primary  ml-2">
+            Novo
+          </button>
+
+          <button type="button"  class="btn btn-secondary  ml-2" [routerLink]="['']">
+            Voltar
+          </button>
+        </div>
+      </div>
+      </form>
+
+</body>
+</html>

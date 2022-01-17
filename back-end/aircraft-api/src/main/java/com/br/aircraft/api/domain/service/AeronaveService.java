@@ -2,6 +2,8 @@ package com.br.aircraft.api.domain.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+
 import com.br.aircraft.api.domain.dto.AeronaveDTO;
 import com.br.aircraft.api.domain.dto.input.AeronaveInput;
 
