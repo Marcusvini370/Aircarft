@@ -17,6 +17,11 @@ export class AeronaveComponent implements OnInit {
     private aeronaveService: AeronaveService
   ) {}
 
+  aeronave = {} as Aeronave;
+  listaMarcas: string[] = utils.marcasAsSelect();
+  alertShow = false;
+  alertMessage: string = '';
+
   ngOnInit(): void {
     let id = this.routerActive.snapshot.paramMap.get('id');
 
@@ -31,10 +36,24 @@ export class AeronaveComponent implements OnInit {
     }
   }
 
-  aeronave = {} as Aeronave;
-  listaMarcas: string[] = utils.marcasAsSelect();
+  validacaoForm(){
+
+    if(this.aeronave.ano <= 1960 || this.aeronave.ano > 2022){
+      this.alertMessage =  `Ano inválido voce digitou ${this.aeronave.ano}, digite um ano no intervalo de 1960 a 2022 `;
+        this.alertShow = true
+        return true;
+    }
+    this.alertShow = false;
+    return false;
+  }
 
   salvarAeronave() {
+
+    if( this.validacaoForm()){
+      return;
+    }
+
+
     if (
       this.aeronave.id != null &&
       this.aeronave.id.toString().trim() != null
@@ -48,11 +67,11 @@ export class AeronaveComponent implements OnInit {
       //salvando
       this.aeronaveService.salvarAeronave(this.aeronave).subscribe((data) => {
         alert('Aeronave cadastrada com sucesso');
-
         this.novo();
       });
     }
   }
+
 
   novo() {
     this.aeronave = new Aeronave();

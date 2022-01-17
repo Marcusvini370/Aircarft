@@ -18,7 +18,7 @@ export class ListAeronavesComponent implements OnInit {
 
   grupoMarcas: GrupoTotalDTO[] = [];
   grupoDecadas: GrupoTotalDTO[] = [];
-
+  nome: string = '';
   regSemanal!: Number;
   relNaoVendida!: Number;
 
@@ -49,4 +49,21 @@ export class ListAeronavesComponent implements OnInit {
       });
     }
   }
+
+
+  consultaModelo(){
+    if (this.nome === '') {
+      this.aeronaveService.getAeronaveList().subscribe((data) => {
+        this.aeronaves = data;
+      });
+
+    }else {
+      this.aeronaveService.consultarModelo(this.nome).subscribe(data =>{
+        this.aeronaves = data;
+      });
+    }
+  }
+
+
+
 }

@@ -6,12 +6,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,7 +25,6 @@ import com.br.aircraft.api.domain.dto.input.AeronaveInput;
 import com.br.aircraft.api.domain.dto.search.GrupoDTO;
 import com.br.aircraft.api.domain.dto.search.GrupoNaoVendidasDTO;
 import com.br.aircraft.api.domain.dto.search.GrupoSemanaDTO;
-import com.br.aircraft.api.domain.model.Aeronave;
 import com.br.aircraft.api.domain.repository.AeronaveRepository;
 import com.br.aircraft.api.domain.service.AeronaveService;
 
@@ -40,15 +34,18 @@ public class AeronaveController {
 
 	@Autowired
 	private AeronaveRepository aeronaveRepository;
+	
+	@Autowired
+	private AeronaveDtoAssembler aeronaveDtoAssembler;
 
 	private final AeronaveService aeronaveService;
-	
+
 	public AeronaveController(AeronaveService aeronaveService) {
 		this.aeronaveService = aeronaveService;
 	}
 
 	@GetMapping
-	public ResponseEntity<List<AeronaveDTO>>   findAll() {
+	public ResponseEntity<List<AeronaveDTO>> findAll() {
 		return ResponseEntity.ok(aeronaveService.findAll());
 	}
 
@@ -93,6 +90,11 @@ public class AeronaveController {
 	@GetMapping("/no-sellers")
 	public GrupoNaoVendidasDTO findNoSellers() {
 		return aeronaveRepository.aeronavesNaoVendidas();
+	}
+	
+	@GetMapping("/find/{nome}")
+	public List<AeronaveDTO> findParameters(@PathVariable String nome) {
+		return   aeronaveDtoAssembler.toCollectionModel(aeronaveRepository.findByNomeContaining(nome)) ; 
 	}
 
 }

@@ -23,10 +23,6 @@ export class HandlerInterceptorService implements HttpInterceptor {
           erroArray.push(element.userMessage)
         });
 
-        console.log(erroArray)
-
-
-
         const log = 'Título: ' + err?.error?.title + '\nDetalhe: ' + err.error?.detail + '\nErros: \n' + erroArray.join(".\n") ;
 
         alert(log);

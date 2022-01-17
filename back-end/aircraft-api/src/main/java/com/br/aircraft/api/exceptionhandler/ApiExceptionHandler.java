@@ -179,7 +179,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	private ResponseEntity<Object> handlePropertyBinding(PropertyBindingException ex, HttpHeaders headers,
 			HttpStatus status, WebRequest request) {
 
-		// Criei o método joinPath para reaproveitar em todos os métodos que precisam
+		//  método joinPath serve para reaproveitar em todos os métodos que precisam
 		// concatenar os nomes das propriedades (separando por ".")
 		String path = joinPath(ex.getPath());
 
