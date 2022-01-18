@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.br.aircraft.api.controller.swaggerapi.AeronaveControllerSwagger;
 import com.br.aircraft.api.domain.dto.AeronaveDTO;
 import com.br.aircraft.api.domain.dto.input.AeronaveInput;
 import com.br.aircraft.api.domain.dto.search.GrupoDTO;
@@ -26,9 +28,10 @@ import com.br.aircraft.api.domain.dto.search.GrupoNaoVendidasDTO;
 import com.br.aircraft.api.domain.dto.search.GrupoSemanaDTO;
 import com.br.aircraft.api.domain.service.AeronaveService;
 
+
 @RestController
-@RequestMapping(value = "/aeronaves")
-public class AeronaveController {
+@RequestMapping(value = "/aeronaves", produces = MediaType.APPLICATION_JSON_VALUE)
+public class AeronaveController implements AeronaveControllerSwagger {
 
 	private final AeronaveService aeronaveService;
 
@@ -82,9 +85,9 @@ public class AeronaveController {
 	public ResponseEntity<GrupoNaoVendidasDTO> findNoSellers() {
 		return ResponseEntity.ok(aeronaveService.findNoSellers());
 	}
-	
+
 	@GetMapping("/find/{nome}")
-	public ResponseEntity<List<AeronaveDTO>> findModel(@PathVariable String nome){
+	public ResponseEntity<List<AeronaveDTO>> findModel(@PathVariable String nome) {
 		return ResponseEntity.ok(aeronaveService.findByModel(nome));
 	}
 
