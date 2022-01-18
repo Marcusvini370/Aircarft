@@ -32,6 +32,6 @@ public interface AeronaveRepository extends JpaRepository<Aeronave, Long> {
 	List<GrupoDTO> aeronavesPorDecada();
 
 	Page<Aeronave> findByNomeContaining(String nome, Pageable pageable);
-	
+	List<Aeronave> findByNomeContaining(String nome);
 
 }

@@ -32,8 +32,6 @@ export class HandlerInterceptorService implements HttpInterceptor {
       }));
   }
 
-
-
   }
 
   @NgModule({

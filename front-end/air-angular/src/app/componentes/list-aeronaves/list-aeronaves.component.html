@@ -50,7 +50,7 @@
 
           <td>
             <button [routerLink]="['/aeronave', aeronave.id]" class="btn btn-success">Editar </button>
-            <button (click)="deleteAeronave(aeronave.id)" class="ml-3 btn btn-primary">Delete</button>
+            <button (click)="deleteAeronave(aeronave.id, i)" class="ml-3 btn btn-primary">Delete</button>
           </td>
 
         </tr>
@@ -63,10 +63,10 @@
 
     <div class="form-row mt-5">
       <div class="form-group col-md-3">
-        <h5 class="ml-5"><Strong>Época</Strong></h5>
+        <h5 class="ml-5"><Strong>Relatório por Década</Strong></h5>
         <ul style="list-style-type: none">
-          <li *ngFor="let grupDecadas of grupoDecadas">
-            {{ grupDecadas.grupo }}: {{ grupDecadas.total }}
+          <li *ngFor="let grupDecadas of grupoDecadas" class="ml-2">
+            <strong>{{ grupDecadas.grupo }}:</strong> {{ grupDecadas.total }} aeronave
           </li>
         </ul>
       </div>

@@ -44,12 +44,10 @@ export class ListAeronavesComponent implements OnInit {
     });
   }
 
-  deleteAeronave(id: Number) {
+  deleteAeronave(id: Number, index: any) {
     if (confirm('Deseja mesmo remover?')) {
       this.aeronaveService.deleteAeronave(id).subscribe((data) => {
-        this.aeronaveService.getAeronaveList().subscribe((data) => {
-          this.aeronaves = data;
-        });
+        this.aeronaves.splice(index, 1);
       });
     }
   }
@@ -58,21 +56,31 @@ export class ListAeronavesComponent implements OnInit {
   consultaModelo(){
     if (this.nome === '') {
       this.aeronaveService.getAeronaveList().subscribe((data) => {
-        this.aeronaves = data;
+        this.aeronaves = data.content;
+        this.total = data.totalElements;
       });
 
     }else {
       this.aeronaveService.consultarModelo(this.nome).subscribe(data =>{
         this.aeronaves = data;
-      });/*  */
+        this.total = data.totalElements;
+        this.p = 1;
+      });
     }
   }
 
   carregarPagina(pagina: any){
+    if(this.nome !== '') {
+      this.aeronaveService.consultarAeronavePorPage(this.nome, pagina - 1).subscribe(data => {
+        this.aeronaves = data.content;
+        this.total = data.totalElements;
+      });
+    }else{
     this.aeronaveService.getAeronaveListPage(pagina -1).subscribe(data => {
       this.aeronaves = data.content;
       this.total = data.totalElements;
   });
+}
 }
 
 

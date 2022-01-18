@@ -82,6 +82,11 @@ public class AeronaveController {
 	public ResponseEntity<GrupoNaoVendidasDTO> findNoSellers() {
 		return ResponseEntity.ok(aeronaveService.findNoSellers());
 	}
+	
+	@GetMapping("/find/{nome}")
+	public ResponseEntity<List<AeronaveDTO>> findModel(@PathVariable String nome){
+		return ResponseEntity.ok(aeronaveService.findByModel(nome));
+	}
 
 	@GetMapping("/page")
 	public ResponseEntity<Page<AeronaveDTO>> listarAeronavesPage(

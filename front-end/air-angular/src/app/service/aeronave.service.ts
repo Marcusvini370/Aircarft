@@ -19,7 +19,6 @@ export class AeronaveService {
     });
   }
 
-  //Edição
   getAeronave(id: any): Observable<any> {
     return this.http.get<any>(AppConstants.baseUrl + id);
   }
@@ -51,12 +50,17 @@ export class AeronaveService {
     );
   }
 
-  consultarModelo(nome:String) : Observable<any> {
-    return this.http.get(AppConstants.baseUrl + "find/" + nome);
+  consultarModelo(nome: String): Observable<any> {
+    return this.http.get(AppConstants.baseUrl + 'find/' + nome);
   }
 
   getAeronaveListPage(pagina: any): Observable<any> {
     return this.http.get<any>(AppConstants.baseUrl + 'page?page=' + pagina);
   }
 
+  consultarAeronavePorPage(nome: String, pagina: Number): Observable<any> {
+    return this.http.get(
+      AppConstants.baseUrl + 'find/' + nome + '/page?page=' + pagina
+    );
+  }
 }
