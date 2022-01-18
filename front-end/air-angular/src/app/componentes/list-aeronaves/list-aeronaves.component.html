@@ -4,30 +4,38 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aeronaves</title>
+    <title>Gestão de aeronave</title>
   </head>
   <body>
-
     <h1 class="text-center mt-4">Relatório da Base</h1>
-    <i class="fas fa-plane-departure fa-10x mt-3 text-primary" style="margin-left:45%;"></i>
+    <i
+      class="fas fa-plane-departure fa-10x mt-3 text-primary"
+      style="margin-left: 44%"
+    ></i>
 
+    <form class="form-inline mt-3">
+      <div class="form-group mx-sm-3">
+        <input
+          type="text"
+          class="form-control"
+          id="nome"
+          name="nome"
+          [(ngModel)]="nome"
+          placeholder="Pesquisa por Modelo"
+        />
+      </div>
+      <button type="button" (click)="consultaModelo()" class="btn btn-primary">
+        Buscar
+      </button>
 
-    <form class="form-inline mt-3 ">
-    <div class="form-group mx-sm-3 ">
-
-      <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="nome" placeholder="Pesquisa por Modelo">
-    </div>
-    <button type="button" (click)="consultaModelo()" class="btn btn-primary">Buscar</button>
-
-    <button
-      type="button"
-      [routerLink]="['/aeronave']"
-      class="btn btn-success mt-5 col-2 mb-5 ml-2"
-    >
-      Nova Aeronave
-    </button>
-
-  </form>
+      <button
+        type="button"
+        [routerLink]="['/aeronave']"
+        class="btn btn-success mt-5 col-2 mb-5 ml-2"
+      >
+        Nova Aeronave
+      </button>
+    </form>
     <table class="table table-striped text-center">
       <thead class="thead-dark">
         <th scope="col">ID</th>
@@ -39,34 +47,61 @@
       </thead>
 
       <tbody>
-        <tr *ngFor="let aeronave of aeronaves | paginate: { itemsPerPage:5, currentPage: p, totalItems : total }; let i = index">
+        <tr
+          *ngFor="
+            let aeronave of aeronaves| paginate : { itemsPerPage: 5, currentPage: p, totalItems: total }; let i = index
+          "
+        >
           <td>{{ aeronave.id }}</td>
           <td>{{ aeronave.marca }}</td>
           <td>{{ aeronave.nome }}</td>
           <td>{{ aeronave.ano }}</td>
 
-          <td *ngIf="aeronave.vendido == true"><i class="fas fa-check text-success fa-2x"></i></td>
-          <td *ngIf="aeronave.vendido == false"><i class="fas fa-times text-danger fa-2x"></i></td>
-
-          <td>
-            <button [routerLink]="['/aeronave', aeronave.id]" class="btn btn-success">Editar </button>
-            <button (click)="deleteAeronave(aeronave.id, i)" class="ml-3 btn btn-primary">Delete</button>
+          <td *ngIf="aeronave.vendido == true">
+            <i class="fas fa-check text-success fa-2x"></i>
+          </td>
+          <td *ngIf="aeronave.vendido == false">
+            <i class="fas fa-times text-danger fa-2x"></i>
           </td>
 
+          <td>
+            <button
+              [routerLink]="['/aeronave', aeronave.id]"
+              class="btn btn-success"
+            >
+              Editar
+            </button>
+            <button
+              (click)="deleteAeronave(aeronave.id, i)"
+              class="ml-3 btn btn-primary"
+            >
+              Delete
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
 
     <div class="text-center">
-      <pagination-controls (pageChange)="carregarPagina(p = $event);" previousLabel="Voltar" nextLabel="Avançar" [responsive]="true"> </pagination-controls>
+
+     <pagination-controls
+        (pageChange)="carregarPagina(p = $event);"
+        previousLabel="Voltar"
+        nextLabel="Avançar"
+        [responsive]="true"
+      >
+      </pagination-controls>
+
+
     </div>
 
     <div class="form-row mt-5">
       <div class="form-group col-md-3">
         <h5 class="ml-5"><Strong>Relatório por Década</Strong></h5>
-        <ul style="list-style-type: none">
+        <ul class="lista">
           <li *ngFor="let grupDecadas of grupoDecadas" class="ml-2">
-            <strong>{{ grupDecadas.grupo }}:</strong> {{ grupDecadas.total }} aeronave
+            <strong>{{ grupDecadas.grupo }}:</strong>
+            {{ grupDecadas.total }} aeronave
           </li>
         </ul>
       </div>
@@ -85,15 +120,12 @@
 
       <div class="form-group col-md-3">
         <h5 class="ml-5"><Strong>Marcas</Strong></h5>
-    <ul style="list-style-type: none; font-size: 18px">
-      <li class="ml-2" *ngFor="let grupoMarcas of grupoMarcas">
-        {{ grupoMarcas.grupo }}: {{ grupoMarcas.total }}
-      </li>
-    </ul>
+        <ul class="lista">
+          <li class="ml-2" *ngFor="let grupoMarcas of grupoMarcas">
+            {{ grupoMarcas.grupo }}: {{ grupoMarcas.total }}
+          </li>
+        </ul>
       </div>
     </div>
-
-
-
   </body>
 </html>

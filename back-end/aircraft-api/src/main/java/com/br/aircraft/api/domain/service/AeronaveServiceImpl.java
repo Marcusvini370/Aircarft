@@ -121,12 +121,12 @@ public class AeronaveServiceImpl implements AeronaveService {
 
 	@Override
 	public List<AeronaveDTO> findByNomeContaining(String nome, Pageable pageable) {
-		return aeronaveDtoAssembler.toCollectionModelPage(aeronaveRepository.findByNomeContaining(nome, pageable));
+		return aeronaveDtoAssembler.toCollectionModelPage(aeronaveRepository.findByNomeContaining(nome.toUpperCase(), pageable));
 	}
 
 	@Override
 	public List<AeronaveDTO> findByModel(String nome) {
-		return  aeronaveDtoAssembler.toCollectionModel(aeronaveRepository.findByNomeContaining(nome));
+		return  aeronaveDtoAssembler.toCollectionModel(aeronaveRepository.findByNomeContaining(nome.toUpperCase()));
 	}
 
 }

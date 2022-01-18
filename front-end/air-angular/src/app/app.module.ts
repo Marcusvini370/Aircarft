@@ -1,5 +1,5 @@
 import { HttpInterceptorModule } from './service/handler-interceptor.service';
-import {  ModuleWithProviders, NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -10,27 +10,20 @@ import { HttpClientModule } from '@angular/common/http';
 import { AeronaveComponent } from './componentes/aeronave/aeronave.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ListAeronavesComponent } from './componentes/list-aeronaves/list-aeronaves.component';
-import {NgxPaginationModule} from 'ngx-pagination';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 
 export const appRouters: Routes = [
-  {path: 'aeronave', component : AeronaveComponent},
-  {path: 'aeronave/:id', component : AeronaveComponent},
-  {path: '', component: ListAeronavesComponent},
-  {path: '**', redirectTo: '' }
-
+  { path: 'aeronave', component: AeronaveComponent },
+  { path: 'aeronave/:id', component: AeronaveComponent },
+  { path: '', component: ListAeronavesComponent },
+  { path: '**', redirectTo: '' },
 ];
 
-export const routes : ModuleWithProviders<any> = RouterModule.forRoot(appRouters);
-
+export const routes: ModuleWithProviders<any> =
+  RouterModule.forRoot(appRouters);
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    AeronaveComponent,
-    ListAeronavesComponent,
-
-  ],
+  declarations: [AppComponent, AeronaveComponent, ListAeronavesComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -40,11 +33,9 @@ export const routes : ModuleWithProviders<any> = RouterModule.forRoot(appRouters
     RouterModule,
     routes,
     HttpInterceptorModule,
-    NgxPaginationModule
+    NgxPaginationModule,
   ],
-  providers: [
-
-  ],
-  bootstrap: [AppComponent]
+  providers: [],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,3 +1,7 @@
 .fonte_tam{
   font-size: 18px;
 }
+.lista{
+  list-style-type: none;
+  font-size: 18px
+}

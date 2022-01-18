@@ -24,7 +24,6 @@ export class ListAeronavesComponent implements OnInit {
   p: any;
   total: any;
 
-
   ngOnInit(): void {
     this.aeronaveService.getAeronaveList().subscribe((data) => {
       this.aeronaves = data;
@@ -52,36 +51,38 @@ export class ListAeronavesComponent implements OnInit {
     }
   }
 
-
-  consultaModelo(){
-    if (this.nome === '') {
-      this.aeronaveService.getAeronaveList().subscribe((data) => {
-        this.aeronaves = data.content;
-        this.total = data.totalElements;
-      });
-
-    }else {
-      this.aeronaveService.consultarModelo(this.nome).subscribe(data =>{
+  consultaModelo() {
+    if (this.nome.length > 0) {
+      this.aeronaveService.consultarModelo(this.nome).subscribe((data) => {
         this.aeronaves = data;
         this.total = data.totalElements;
         this.p = 1;
+        console.log(data);
+      });
+    } else {
+      this.aeronaveService.getAeronaveList().subscribe((data) => {
+        this.aeronaves = data;
+        this.total = data.totalElements;
+        console.log(data);
       });
     }
   }
 
-  carregarPagina(pagina: any){
-    if(this.nome !== '') {
-      this.aeronaveService.consultarAeronavePorPage(this.nome, pagina - 1).subscribe(data => {
+  carregarPagina(pagina: any) {
+    if (this.nome !== '') {
+      this.aeronaveService
+        .consultarAeronavePorPage(this.nome, pagina - 1)
+        .subscribe((data) => {
+          this.aeronaves = data.content;
+          this.total = data.totalElements;
+          console.log(data);
+        });
+    } else {
+      this.aeronaveService.getAeronaveListPage(pagina - 1).subscribe((data) => {
         this.aeronaves = data.content;
         this.total = data.totalElements;
+        console.log(data);
       });
-    }else{
-    this.aeronaveService.getAeronaveListPage(pagina -1).subscribe(data => {
-      this.aeronaves = data.content;
-      this.total = data.totalElements;
-  });
-}
-}
-
-
+    }
+  }
 }

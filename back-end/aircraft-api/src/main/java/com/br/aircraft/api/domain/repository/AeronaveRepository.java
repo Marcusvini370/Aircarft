@@ -31,7 +31,10 @@ public interface AeronaveRepository extends JpaRepository<Aeronave, Long> {
 			+ "COUNT(*) as total from tb_aeronave aeronave group by grupo ORDER BY grupo;", nativeQuery = true) 
 	List<GrupoDTO> aeronavesPorDecada();
 
+	@Query("select u from Aeronave u where upper(trim(u.nome)) like %?1%")
 	Page<Aeronave> findByNomeContaining(String nome, Pageable pageable);
+	
+	@Query("select u from Aeronave u where upper(trim(u.nome)) like %?1%")
 	List<Aeronave> findByNomeContaining(String nome);
 
 }

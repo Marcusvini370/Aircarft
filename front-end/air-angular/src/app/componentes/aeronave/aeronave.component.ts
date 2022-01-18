@@ -1,10 +1,9 @@
-import { GrupoTotalDTO } from './../../model/GrupoTotalDTO';
+import { utils } from './../../AeronaveUtils/Utils';
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AeronaveService } from 'src/app/service/aeronave.service';
 import { Aeronave } from 'src/app/model/aeronave';
-import { utils } from 'src/app/AeronaveUtils/utils';
+import { AeronaveService } from 'src/app/service/aeronave.service';
 
 @Component({
   selector: 'app-aeronave',
@@ -36,23 +35,20 @@ export class AeronaveComponent implements OnInit {
     }
   }
 
-  validacaoForm(){
-
-    if(this.aeronave.ano <= 1960 || this.aeronave.ano > 2022){
-      this.alertMessage =  `Ano inválido voce digitou ${this.aeronave.ano}, digite um ano no intervalo de 1960 a 2022 `;
-        this.alertShow = true
-        return true;
+  validacaoForm() {
+    if (this.aeronave.ano <= 1960 || this.aeronave.ano > 2022) {
+      this.alertMessage = `Ano inválido voce digitou ${this.aeronave.ano}, digite um ano no intervalo de 1960 a 2022 `;
+      this.alertShow = true;
+      return true;
     }
     this.alertShow = false;
     return false;
   }
 
   salvarAeronave() {
-
-    if( this.validacaoForm()){
+    if (this.validacaoForm()) {
       return;
     }
-
 
     if (
       this.aeronave.id != null &&
@@ -71,7 +67,6 @@ export class AeronaveComponent implements OnInit {
       });
     }
   }
-
 
   novo() {
     this.aeronave = new Aeronave();
