@@ -55,4 +55,8 @@ export class AeronaveService {
     return this.http.get(AppConstants.baseUrl + "find/" + nome);
   }
 
+  getAeronaveListPage(pagina: any): Observable<any> {
+    return this.http.get<any>(AppConstants.baseUrl + 'page?page=' + pagina);
+  }
+
 }

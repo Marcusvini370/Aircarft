@@ -1,17 +1,25 @@
 package com.br.aircraft.api.domain.service;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
 
 import com.br.aircraft.api.assembler.AeronaveDtoAssembler;
 import com.br.aircraft.api.assembler.AeronaveInputDissasembler;
 import com.br.aircraft.api.domain.dto.AeronaveDTO;
 import com.br.aircraft.api.domain.dto.input.AeronaveInput;
+import com.br.aircraft.api.domain.dto.search.GrupoDTO;
+import com.br.aircraft.api.domain.dto.search.GrupoNaoVendidasDTO;
+import com.br.aircraft.api.domain.dto.search.GrupoSemanaDTO;
 import com.br.aircraft.api.domain.exception.AeronaveMarcaInvalidException;
 import com.br.aircraft.api.domain.exception.AeronaveNotFoundException;
 import com.br.aircraft.api.domain.model.Aeronave;
@@ -37,6 +45,16 @@ public class AeronaveServiceImpl implements AeronaveService {
 	@Transactional
 	public List<AeronaveDTO> findAll() {
 		return aeronaveDtoAssembler.toCollectionModel(aeronaveRepository.findAll());
+	}
+	
+	
+	@Override
+	@Transactional
+	public Page<AeronaveDTO> findAllPage(Pageable pageable) {
+		Page<Aeronave> aeronavesPage = aeronaveRepository.findAll(pageable);
+		List<AeronaveDTO> aeronavesDTO = aeronaveDtoAssembler.toCollectionModel(aeronavesPage.getContent());
+		Page<AeronaveDTO> aeronavesDtoPage = new PageImpl<>(aeronavesDTO, pageable, aeronavesPage.getTotalElements());
+		return aeronavesDtoPage;
 	}
 
 	@Override
@@ -82,4 +100,36 @@ public class AeronaveServiceImpl implements AeronaveService {
 				.orElseThrow(() -> new AeronaveNotFoundException(String.format(MSG_AERONAVE_NAO_ENCOTNADA, id)));
 	}
 
+	
+	@Override
+	public GrupoSemanaDTO findRegistroSemanal() {
+		OffsetDateTime dataDiasAtras = OffsetDateTime.now().minusDays(7);
+		return aeronaveRepository.aeronavesRegistradasSemana(dataDiasAtras);
+	}
+	
+
+	@Override
+	public List<GrupoDTO> findDecada() {
+		return aeronaveRepository.aeronavesPorDecada();
+	}
+	
+	@Override
+	public List<GrupoDTO> findMarcaQuantidade() {
+		return aeronaveRepository.aeronaveMarcaAndQuantidade();
+	}
+	
+	
+	@Override
+	public GrupoNaoVendidasDTO findNoSellers() {
+		return aeronaveRepository.aeronavesNaoVendidas();
+	}
+	
+	@Override
+	public List<AeronaveDTO> findModel(String nome, Pageable pageable) {
+		return aeronaveDtoAssembler.toCollectionModel(aeronaveRepository.findByNomeContaining(nome));
+	}
+
+	
+
+	
 }

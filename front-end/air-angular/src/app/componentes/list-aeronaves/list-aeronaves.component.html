@@ -39,7 +39,7 @@
       </thead>
 
       <tbody>
-        <tr *ngFor="let aeronave of aeronaves">
+        <tr *ngFor="let aeronave of aeronaves | paginate: { itemsPerPage:5, currentPage: p, totalItems : total }; let i = index">
           <td>{{ aeronave.id }}</td>
           <td>{{ aeronave.marca }}</td>
           <td>{{ aeronave.nome }}</td>
@@ -56,6 +56,10 @@
         </tr>
       </tbody>
     </table>
+
+    <div class="text-center">
+      <pagination-controls (pageChange)="carregarPagina(p = $event);" previousLabel="Voltar" nextLabel="Avançar" [responsive]="true"> </pagination-controls>
+    </div>
 
     <div class="form-row mt-5">
       <div class="form-group col-md-3">

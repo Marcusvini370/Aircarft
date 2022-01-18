@@ -25,8 +25,5 @@ public class AeronaveDtoAssembler {
         return Aeronaves.stream()
                 .map(cozinha -> toModel(cozinha))
                 .collect(Collectors.toList());
-    }
-
-	   
-
+    }   
 }

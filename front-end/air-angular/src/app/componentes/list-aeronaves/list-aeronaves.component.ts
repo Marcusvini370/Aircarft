@@ -21,10 +21,14 @@ export class ListAeronavesComponent implements OnInit {
   nome: string = '';
   regSemanal!: Number;
   relNaoVendida!: Number;
+  p: any;
+  total: any;
+
 
   ngOnInit(): void {
     this.aeronaveService.getAeronaveList().subscribe((data) => {
       this.aeronaves = data;
+      this.total = data.totalElements;
     });
 
     forkJoin([
@@ -60,10 +64,16 @@ export class ListAeronavesComponent implements OnInit {
     }else {
       this.aeronaveService.consultarModelo(this.nome).subscribe(data =>{
         this.aeronaves = data;
-      });
+      });/*  */
     }
   }
 
+  carregarPagina(pagina: any){
+    this.aeronaveService.getAeronaveListPage(pagina -1).subscribe(data => {
+      this.aeronaves = data.content;
+      this.total = data.totalElements;
+  });
+}
 
 
 }
