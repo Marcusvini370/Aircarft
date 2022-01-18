@@ -129,6 +129,13 @@ public class AeronaveServiceImpl implements AeronaveService {
 		return aeronaveDtoAssembler.toCollectionModel(aeronaveRepository.findByNomeContaining(nome));
 	}
 
+
+	@Override
+	public List<AeronaveDTO> findModel(String nome) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 
 	
