@@ -10,7 +10,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
 
 import com.br.aircraft.api.assembler.AeronaveDtoAssembler;
@@ -46,8 +45,7 @@ public class AeronaveServiceImpl implements AeronaveService {
 	public List<AeronaveDTO> findAll() {
 		return aeronaveDtoAssembler.toCollectionModel(aeronaveRepository.findAll());
 	}
-	
-	
+
 	@Override
 	@Transactional
 	public Page<AeronaveDTO> findAllPage(Pageable pageable) {
@@ -100,43 +98,30 @@ public class AeronaveServiceImpl implements AeronaveService {
 				.orElseThrow(() -> new AeronaveNotFoundException(String.format(MSG_AERONAVE_NAO_ENCOTNADA, id)));
 	}
 
-	
 	@Override
 	public GrupoSemanaDTO findRegistroSemanal() {
 		OffsetDateTime dataDiasAtras = OffsetDateTime.now().minusDays(7);
 		return aeronaveRepository.aeronavesRegistradasSemana(dataDiasAtras);
 	}
-	
 
 	@Override
 	public List<GrupoDTO> findDecada() {
 		return aeronaveRepository.aeronavesPorDecada();
 	}
-	
+
 	@Override
 	public List<GrupoDTO> findMarcaQuantidade() {
 		return aeronaveRepository.aeronaveMarcaAndQuantidade();
 	}
-	
-	
+
 	@Override
 	public GrupoNaoVendidasDTO findNoSellers() {
 		return aeronaveRepository.aeronavesNaoVendidas();
 	}
-	
-	@Override
-	public List<AeronaveDTO> findModel(String nome, Pageable pageable) {
-		return aeronaveDtoAssembler.toCollectionModel(aeronaveRepository.findByNomeContaining(nome));
-	}
-
 
 	@Override
-	public List<AeronaveDTO> findModel(String nome) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<AeronaveDTO> findByNomeContaining(String nome, Pageable pageable) {
+		return aeronaveDtoAssembler.toCollectionModelPage(aeronaveRepository.findByNomeContaining(nome, pageable));
 	}
 
-	
-
-	
 }

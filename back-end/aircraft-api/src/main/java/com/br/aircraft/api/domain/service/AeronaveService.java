@@ -25,8 +25,7 @@ public interface AeronaveService {
 
 	Page<AeronaveDTO> findAllPage(Pageable pageable);
 	
-	List<AeronaveDTO> findModel(String nome);
-
+	List<AeronaveDTO> findByNomeContaining(String nome, Pageable pageable);
 
 	GrupoSemanaDTO findRegistroSemanal();
 
