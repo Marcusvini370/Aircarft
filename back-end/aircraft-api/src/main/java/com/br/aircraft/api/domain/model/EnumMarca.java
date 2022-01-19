@@ -8,7 +8,7 @@ public enum EnumMarca {
 	BOEING("Boeing"),
 	BOMBARDIER("Bombardier"),
 	LEARJET("Learjet"),
-	ANTONOV("Antov"),
+	ANTONOV("Antonov"),
 	CESSNA("Cessna");
 	
 	private String marca;

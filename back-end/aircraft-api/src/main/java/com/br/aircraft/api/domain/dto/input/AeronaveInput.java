@@ -3,10 +3,13 @@ package com.br.aircraft.api.domain.dto.input;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Setter
 @Getter
 public class AeronaveInput {
@@ -22,7 +25,8 @@ public class AeronaveInput {
 	@NotNull
 	@ApiModelProperty(example = "2020", required = true)
 	private Integer ano;
-
+ 
+	
 	@ApiModelProperty(example = "Jato Executivo")
 	private String descricao;
 	

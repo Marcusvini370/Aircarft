@@ -21,11 +21,13 @@ export class AeronaveComponent implements OnInit {
   alertShow = false;
   alertMessage: string = '';
 
+
   ngOnInit(): void {
-    let id = this.routerActive.snapshot.paramMap.get('id');
+   let id = this.routerActive.snapshot.paramMap.get('id');
 
     if (id != null) {
       this.aeronaveService.getAeronave(id).subscribe((data) => {
+        this.aeronave.id = data.id;
         this.aeronave.marca = data.marca;
         this.aeronave.nome = data.nome;
         this.aeronave.ano = data.ano;
@@ -34,6 +36,8 @@ export class AeronaveComponent implements OnInit {
       });
     }
   }
+
+
 
   validacaoForm() {
     if (this.aeronave.ano <= 1960 || this.aeronave.ano > 2022) {
@@ -50,14 +54,12 @@ export class AeronaveComponent implements OnInit {
       return;
     }
 
-    if (
-      this.aeronave.id != null &&
-      this.aeronave.id.toString().trim() != null
+    if (this.aeronave.id != null && this.aeronave.id.toString().trim() != null
     ) {
       /* Atuzalizando ou editando se o usuário existir*/
-      this.aeronaveService.updateAeronave(this.aeronave).subscribe((data) => {
-        alert('Registro Atualizado' + data);
-        this.novo();
+      this.aeronaveService.updateAeronave(this.aeronave.id, this.aeronave).subscribe((data) => {
+        alert('Registro Atualizado');
+
       });
     } else {
       //salvando
@@ -70,5 +72,6 @@ export class AeronaveComponent implements OnInit {
 
   novo() {
     this.aeronave = new Aeronave();
+    this.alertShow = false;
   }
 }

@@ -27,8 +27,10 @@ export class AeronaveService {
     return this.http.post<any>(AppConstants.baseUrl, aeronave);
   }
 
-  updateAeronave(aeronave: any): Observable<any> {
-    return this.http.put<any>(AppConstants.baseUrl, aeronave);
+  updateAeronave(id:any,aeronave: any): Observable<any> {
+   // delete aeronave.id;
+ //  aeronave.id = null;
+    return this.http.put<any>(AppConstants.baseUrl + id, aeronave);
   }
 
   getAeronaveSemanal(): Observable<{ semanal: number }> {

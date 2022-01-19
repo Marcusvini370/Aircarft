@@ -16,8 +16,8 @@ public class AeronaveInputDissasembler {
 	        return modelMapper.map(aeronaveInput, Aeronave.class);
 	    }
 	    
-	   public void copyToDomainObject(AeronaveInput cozinhaInput, Aeronave cozinha) {
-	        modelMapper.map(cozinhaInput, cozinha);
+	   public void copyToDomainObject(AeronaveInput aeronaveInput, Aeronave aeronave) {
+	        modelMapper.map(aeronaveInput, aeronave);
 	    }
 
 }

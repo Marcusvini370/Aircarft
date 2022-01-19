@@ -26,7 +26,6 @@ export class HandlerInterceptorService implements HttpInterceptor {
         const log = 'Título: ' + err?.error?.title + '\nDetalhe: ' + err.error?.detail + '\nErros: \n' + erroArray.join(".\n") ;
 
         alert(log);
-        console.log(err);
         return throwError(err);
 
       }));

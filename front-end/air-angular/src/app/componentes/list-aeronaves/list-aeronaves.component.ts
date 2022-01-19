@@ -57,13 +57,11 @@ export class ListAeronavesComponent implements OnInit {
         this.aeronaves = data;
         this.total = data.totalElements;
         this.p = 1;
-        console.log(data);
       });
     } else {
       this.aeronaveService.getAeronaveList().subscribe((data) => {
         this.aeronaves = data;
         this.total = data.totalElements;
-        console.log(data);
       });
     }
   }
@@ -75,13 +73,11 @@ export class ListAeronavesComponent implements OnInit {
         .subscribe((data) => {
           this.aeronaves = data.content;
           this.total = data.totalElements;
-          console.log(data);
         });
     } else {
       this.aeronaveService.getAeronaveListPage(pagina - 1).subscribe((data) => {
         this.aeronaves = data.content;
         this.total = data.totalElements;
-        console.log(data);
       });
     }
   }

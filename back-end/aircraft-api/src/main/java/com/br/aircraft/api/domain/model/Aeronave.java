@@ -39,9 +39,10 @@ public class Aeronave implements Serializable {
 	
 	private Integer ano;
 	
-	private String descricao;
-	
-	private Boolean vendido;
+	@Column(columnDefinition = "text")  
+	private String descricao; 
+	 
+	private Boolean vendido; 
 	
 	@CreationTimestamp
 	@Column(nullable = false, columnDefinition = "timestamp")
