@@ -1,5 +1,5 @@
 <h1 align="center"> Projeto Gestão de Aeronaves </h1>
-<p align="center">Sistema de Gestão de Aeronaves com crud e algumas regras de négocio, api foi feita com spring no backend,
+<p align="center">Sistema de Gestão de Aeronaves com crud e algumas regras de négocio, a api foi feita com spring no backend,
 e no frontend foi usado o framework angular na versão 13, o projeto tem tratamento de exceções, dto, paginação, documentação com swagger entre outros.</p>
 
 <br>
@@ -8,7 +8,7 @@ e no frontend foi usado o framework angular na versão 13, o projeto tem tratame
 
 Você pode visualizar o layout do projeto através desse link https://marcus-aircraft.netlify.app/ , é necessário esperar alguns segundos para que o banco de dados carregue.
 
-![image](https://user-images.githubusercontent.com/51136557/150211039-0403e550-9ed1-47ff-8322-7e315077a782.png)
+![image](https://user-images.githubusercontent.com/51136557/150234175-13c1a353-f25f-4e6d-9bc8-97c8c0ff3f2d.png)
 
 <br>
 
@@ -48,10 +48,15 @@ git clone https://github.com/Marcusvini370/Aircarft.git
 
 #### Backend
 
-Depois que o projeto foi clonado no seu ambiente, importe o projeto back-end para sua ide como o intelij, sts ou outra, instale as dependências dele,
-após isso é necessário criar um banco de dados postgreSQL com o nome aircraft após isso é só rodar ele na ide que estará funcionando.
+Depois que o projeto foi clonado no seu ambiente, importe o projeto back-end para sua ide como o intelij, sts ou outra, instale as dependências dele, após isso é necessário criar um banco de dados no postgreSQL com o nome aircraft, após isso é só rodar ele na ide que estará funcionando.
 
 <strong>Obs:</strong> o nome do banco de dados pode ser alterado no arquivo application.properties para o de prefeência se preferir.
+
+Link da api hospedada no heroku:
+
+```bash
+http://marcus-aircraft.herokuapp.com/aircraft/aeronaves
+```
 
 #### Frontend
 
