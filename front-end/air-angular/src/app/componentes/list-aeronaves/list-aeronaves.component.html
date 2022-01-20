@@ -57,10 +57,10 @@
           <td>{{ aeronave.nome }}</td>
           <td>{{ aeronave.ano }}</td>
 
-          <td *ngIf="aeronave.vendido == true">
+          <td *ngIf="aeronave.vendido">
             <i class="fas fa-check text-success fa-2x"></i>
           </td>
-          <td *ngIf="aeronave.vendido == false">
+          <td *ngIf="!aeronave.vendido ">
             <i class="fas fa-times text-danger fa-2x"></i>
           </td>
 
@@ -86,6 +86,7 @@
 
      <pagination-controls
         (pageChange)="carregarPagina(p = $event);"
+        (pageBoundsCorrection)="consultarComPaginaValida($event)"
         previousLabel="Voltar"
         nextLabel="Avançar"
         [responsive]="true"

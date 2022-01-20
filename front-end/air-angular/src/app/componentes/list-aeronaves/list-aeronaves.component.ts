@@ -21,15 +21,26 @@ export class ListAeronavesComponent implements OnInit {
   nome: string = '';
   regSemanal!: Number;
   relNaoVendida!: Number;
-  p: any;
+  p: any = 1;
   total: any;
 
   ngOnInit(): void {
-    this.aeronaveService.getAeronaveList().subscribe((data) => {
-      this.aeronaves = data;
-      this.total = data.totalElements;
-    });
+    this.carregarDados();
+  }
 
+  private carregarDados(pagina?: any) {
+    this.aeronaveService.getAeronaveListPage((pagina || this.p) - 1).subscribe((data) => {
+      if (!data.content.length && data.totalElements) {
+        this.carregarDados(data.number);
+        return;
+      }
+      this.aeronaves = data.content;
+      this.total = data.totalElements;
+      this.recuperarEstatisticas();
+    });
+  }
+
+  private recuperarEstatisticas() {
     forkJoin([
       this.aeronaveService.getAeronaveSemanal(),
       this.aeronaveService.getAeronaveNaoVendida(),
@@ -46,39 +57,47 @@ export class ListAeronavesComponent implements OnInit {
   deleteAeronave(id: Number, index: any) {
     if (confirm('Deseja mesmo remover?')) {
       this.aeronaveService.deleteAeronave(id).subscribe((data) => {
-        this.aeronaves.splice(index, 1);
+        this.carregarDados();
       });
     }
   }
 
   consultaModelo() {
-    if (this.nome.length > 0) {
-      this.aeronaveService.consultarModelo(this.nome).subscribe((data) => {
-        this.aeronaves = data;
-        this.total = data.totalElements;
-        this.p = 1;
-      });
+    if (this.nome) {
+      this.aeronaveService.consultarAeronavePorPage(this.nome, this.p - 1).subscribe((data) => this.aplicarPaginacaoComPesquisa(data));
     } else {
-      this.aeronaveService.getAeronaveList().subscribe((data) => {
-        this.aeronaves = data;
-        this.total = data.totalElements;
-      });
+      this.aeronaveService.getAeronaveListPage(this.p - 1).subscribe((data) => this.aplicarPaginacao(data));
     }
   }
 
-  carregarPagina(pagina: any) {
-    if (this.nome !== '') {
-      this.aeronaveService
-        .consultarAeronavePorPage(this.nome, pagina - 1)
-        .subscribe((data) => {
-          this.aeronaves = data.content;
-          this.total = data.totalElements;
-        });
-    } else {
-      this.aeronaveService.getAeronaveListPage(pagina - 1).subscribe((data) => {
-        this.aeronaves = data.content;
-        this.total = data.totalElements;
-      });
+  aplicarPaginacao(data: any) {
+    this.aeronaves = data.content;
+    this.total = data.totalElements;
+  }
+
+  aplicarPaginacaoComPesquisa(data: any) {
+    this.aplicarPaginacao(data);
+
+    if (!this.total) {
+      alert('Nenhum resultado');
     }
   }
+
+  consultarComPaginaValida(pagina: any) {
+    this.p = pagina;
+    this.aeronaveService
+      .consultarAeronavePorPage(this.nome, this.p = 0)
+      .subscribe((data) => this.aplicarPaginacao(data));
+  }
+
+  carregarPagina(pagina: any) {
+    if (this.nome) {
+      this.aeronaveService
+        .consultarAeronavePorPage(this.nome, pagina - 1)
+        .subscribe((data) => this.aplicarPaginacaoComPesquisa(data));
+    } else {
+      this.aeronaveService.getAeronaveListPage(pagina - 1).subscribe((data) => this.aplicarPaginacao(data));
+    }
+  }
+
 }
