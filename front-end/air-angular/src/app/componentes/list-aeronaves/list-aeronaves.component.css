@@ -5,3 +5,9 @@
   list-style-type: none;
   font-size: 18px
 }
+
+.modalPdf{
+  min-width: 90%;
+  min-height: 90%;
+  height: 90%;
+}

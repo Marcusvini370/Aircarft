@@ -48,7 +48,7 @@ export class AeronaveService {
 
   getAeronaveNaoVendida(): Observable<{ disponiveis: number }> {
     return this.http.get<{ disponiveis: number }>(
-      AppConstants.baseUrl + 'no-sellers'
+      AppConstants.baseUrl + 'nao-vendidas'
     );
   }
 
@@ -65,4 +65,33 @@ export class AeronaveService {
       AppConstants.baseUrl + 'find/' + nome + '/page?page=' + pagina
     );
   }
+
+
+
+pdfRelatorioSemanal() {
+    return this.http.get(AppConstants.baseUrl + 'relatorio/semanal', {responseType : 'text'}).subscribe(data => {
+      const iframe = document.querySelector('iframe');
+      iframe?.setAttribute('src', data);
+    });
+  }
+
+PdfRelatorioDisponiveis() {
+    return this.http.get(AppConstants.baseUrl + 'relatorio/nao-vendidas', {responseType : 'text'}).subscribe(data => {
+      const iframe = document.querySelector('iframe');
+      iframe?.setAttribute('src', data);
+    });
+  }
+
+
+pdfRelatorioVendidas() {
+  return this.http.get(AppConstants.baseUrl + 'relatorio/vendidas', {responseType : 'text'}).subscribe(data => {
+    const iframe = document.querySelector('iframe');
+    iframe?.setAttribute('src', data);
+  });
+}
+
+
+
+
+
 }

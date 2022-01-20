@@ -1,7 +1,10 @@
 package com.br.aircraft.api.domain.dto.input;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

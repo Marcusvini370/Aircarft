@@ -100,4 +100,16 @@ export class ListAeronavesComponent implements OnInit {
     }
   }
 
+  imprimeRelatorioDisponiveis(){
+    return this.aeronaveService.PdfRelatorioDisponiveis();
+  }
+
+  imprimeRelatorioSemanal(){
+    return this.aeronaveService.pdfRelatorioSemanal();
+  }
+
+  imprimeRelatorioVendidas(){
+    return this.aeronaveService.pdfRelatorioVendidas();
+  }
+
 }

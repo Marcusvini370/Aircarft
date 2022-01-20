@@ -19,10 +19,10 @@ import com.br.aircraft.api.domain.dto.input.AeronaveInput;
 import com.br.aircraft.api.domain.dto.search.GrupoDTO;
 import com.br.aircraft.api.domain.dto.search.GrupoNaoVendidasDTO;
 import com.br.aircraft.api.domain.dto.search.GrupoSemanaDTO;
+import com.br.aircraft.api.domain.enums.EnumMarca;
 import com.br.aircraft.api.domain.exception.AeronaveMarcaInvalidException;
 import com.br.aircraft.api.domain.exception.AeronaveNotFoundException;
 import com.br.aircraft.api.domain.model.Aeronave;
-import com.br.aircraft.api.domain.model.EnumMarca;
 import com.br.aircraft.api.domain.repository.AeronaveRepository;
 
 @Service

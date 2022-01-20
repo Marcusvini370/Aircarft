@@ -14,6 +14,7 @@
     ></i>
 
     <form class="form-inline mt-3">
+
       <div class="form-group mx-sm-3">
         <input
           type="text"
@@ -35,7 +36,39 @@
       >
         Nova Aeronave
       </button>
+
+      <div class="col">
+        <div ngbDropdown class="d-inline-block">
+          <button class="btn btn-dark" id="dropdownBasic1" ngbDropdownToggle>PDF</button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1" data-toggle="modal" data-target="#myModal">
+            <button ngbDropdownItem (click)="imprimeRelatorioSemanal()">Registros Semanal</button>
+            <button ngbDropdownItem (click)="imprimeRelatorioDisponiveis()">Aeronaves Disponíveis</button>
+            <button ngbDropdownItem (click)="imprimeRelatorioVendidas()">Aeronaves Vendidas</button>
+          </div>
+        </div>
+        </div>
+
     </form>
+
+
+      <!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modalPdf">
+    <div class="modal-content">
+      <div class="modal-body">
+        <iframe id="pdf" width="100%" height="700" frameborder="0"
+        scrolling="no" allowtransparency="true">
+      </iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
     <table class="table table-striped text-center">
       <thead class="thead-dark">
         <th scope="col">ID</th>

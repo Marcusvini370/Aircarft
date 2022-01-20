@@ -1,9 +1,13 @@
 package com.br.aircraft.api.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.tomcat.util.codec.binary.Base64;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -26,6 +30,7 @@ import com.br.aircraft.api.domain.dto.search.GrupoDTO;
 import com.br.aircraft.api.domain.dto.search.GrupoNaoVendidasDTO;
 import com.br.aircraft.api.domain.dto.search.GrupoSemanaDTO;
 import com.br.aircraft.api.domain.service.AeronaveService;
+import com.br.aircraft.api.domain.service.relatorioService;
 import com.br.aircraft.api.swagger.controller.AeronaveControllerSwagger;
 
 
@@ -38,6 +43,9 @@ public class AeronaveController implements AeronaveControllerSwagger {
 	public AeronaveController(AeronaveService aeronaveService) {
 		this.aeronaveService = aeronaveService;
 	}
+	
+	@Autowired
+	private relatorioService relatorioService;
 
 	@GetMapping
 	public ResponseEntity<List<AeronaveDTO>> findAll() {
@@ -81,7 +89,7 @@ public class AeronaveController implements AeronaveControllerSwagger {
 		return ResponseEntity.ok(aeronaveService.findDecada());
 	}
 
-	@GetMapping("/no-sellers")
+	@GetMapping("/nao-vendidas")
 	public ResponseEntity<GrupoNaoVendidasDTO> findNoSellers() {
 		return ResponseEntity.ok(aeronaveService.findNoSellers());
 	}
@@ -102,5 +110,23 @@ public class AeronaveController implements AeronaveControllerSwagger {
 			@PageableDefault(size = 5, sort = "nome") Pageable pageable) {
 		return ResponseEntity.ok(aeronaveService.findByNomeContaining(nome, pageable));
 	}
+	
+
+	@GetMapping("/relatorio/vendidas") 
+	public ResponseEntity<String> pdfAeronavesVendidas(HttpServletRequest request) throws Exception {
+		return new ResponseEntity<String>(relatorioService.pdfAeronavesVendidas(request), HttpStatus.OK);
+	}
+	
+	@GetMapping("/relatorio/nao-vendidas") 
+	public ResponseEntity<String> pdfAeronavesNaoVendias(HttpServletRequest request) throws Exception  {
+		return new ResponseEntity<String>(relatorioService.pdfAeronavesNaoVendias(request), HttpStatus.OK);
+	}
+	
+	@GetMapping("/relatorio/semanal") 
+	public ResponseEntity<String> pdfAeronavesSemanal(HttpServletRequest request) throws Exception {
+		return new ResponseEntity<String>(relatorioService.pdfAeronavesSemanal(request), HttpStatus.OK);
+	}
+	
+	
 
 }
