@@ -79,7 +79,7 @@ export class ListAeronavesComponent implements OnInit {
     this.aplicarPaginacao(data);
 
     if (!this.total) {
-      alert('Nenhum resultado');
+      alert('Nenhum resultado encontrado');
     }
   }
 
