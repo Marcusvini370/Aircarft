@@ -1,12 +1,12 @@
 export class Aeronave {
 
 
-   id!: Number;
-	 nome!: String;
-	 marca!: String;
-	 ano!: Number;
-	 descricao!: String;
-	 vendido!: Boolean;
+   id!: number;
+	 nome!: string;
+	 marca!: string;
+	 ano!: number;
+	 descricao!: string;
+	 vendido!: boolean;
 }
 
 export enum EnumMarca{

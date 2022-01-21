@@ -1,5 +1,5 @@
 import { forkJoin } from 'rxjs';
-import { GrupoTotalDTO } from './../../model/GrupoTotalDTO';
+import { GrupoTotalDTO } from '../../model/grupo-total-dto';
 import { Component, OnInit } from '@angular/core';
 import { Aeronave } from 'src/app/model/aeronave';
 import { AeronaveService } from 'src/app/service/aeronave.service';
@@ -10,25 +10,23 @@ import { AeronaveService } from 'src/app/service/aeronave.service';
   styleUrls: ['./list-aeronaves.component.css'],
 })
 export class ListAeronavesComponent implements OnInit {
-  aeronaves: Array<Aeronave> = [
-    { id: 0, nome: '', marca: '', ano: 0, vendido: false, descricao: '' },
-  ];
+  aeronaves: Array<Aeronave> = [];
 
-  constructor(private aeronaveService: AeronaveService) {}
+  constructor(private aeronaveService: AeronaveService) { }
 
   grupoMarcas: GrupoTotalDTO[] = [];
   grupoDecadas: GrupoTotalDTO[] = [];
   nome: string = '';
-  regSemanal!: Number;
-  relNaoVendida!: Number;
-  p: any = 1;
-  total: any;
+  regSemanal!: number;
+  relNaoVendida!: number;
+  p: number = 1;
+  total: number = 0;
 
   ngOnInit(): void {
     this.carregarDados();
   }
 
-  private carregarDados(pagina?: any) {
+  private carregarDados(pagina?: number) {
     this.aeronaveService.getAeronaveListPage((pagina || this.p) - 1).subscribe((data) => {
       if (!data.content.length && data.totalElements) {
         this.carregarDados(data.number);
@@ -54,7 +52,7 @@ export class ListAeronavesComponent implements OnInit {
     });
   }
 
-  deleteAeronave(id: Number, index: any) {
+  deleteAeronave(id: number) {
     if (confirm('Deseja mesmo remover?')) {
       this.aeronaveService.deleteAeronave(id).subscribe((data) => {
         this.carregarDados();
@@ -83,14 +81,14 @@ export class ListAeronavesComponent implements OnInit {
     }
   }
 
-  consultarComPaginaValida(pagina: any) {
+  consultarComPaginaValida(pagina: number) {
     this.p = pagina;
     this.aeronaveService
       .consultarAeronavePorPage(this.nome, this.p = 0)
       .subscribe((data) => this.aplicarPaginacao(data));
   }
 
-  carregarPagina(pagina: any) {
+  carregarPagina(pagina: number) {
     if (this.nome) {
       this.aeronaveService
         .consultarAeronavePorPage(this.nome, pagina - 1)
@@ -100,15 +98,15 @@ export class ListAeronavesComponent implements OnInit {
     }
   }
 
-  imprimeRelatorioDisponiveis(){
+  imprimeRelatorioDisponiveis() {
     return this.aeronaveService.PdfRelatorioDisponiveis();
   }
 
-  imprimeRelatorioSemanal(){
+  imprimeRelatorioSemanal() {
     return this.aeronaveService.pdfRelatorioSemanal();
   }
 
-  imprimeRelatorioVendidas(){
+  imprimeRelatorioVendidas() {
     return this.aeronaveService.pdfRelatorioVendidas();
   }
 

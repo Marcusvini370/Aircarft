@@ -35,6 +35,7 @@ public class Aeronave implements Serializable {
 	
 	private String nome;
 	
+	@Column(length = 30)
 	private String marca;
 	
 	private Integer ano;

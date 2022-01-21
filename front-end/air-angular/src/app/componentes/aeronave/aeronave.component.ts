@@ -1,107 +1,72 @@
-import { utils } from './../../AeronaveUtils/Utils';
-
-import { Component, OnInit, } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Aeronave } from 'src/app/model/aeronave';
 import { AeronaveService } from 'src/app/service/aeronave.service';
-import {  FormControl, FormGroup, Validators } from '@angular/forms';
+
+import { AeronaveUtils } from '../../utils/aeronave-utils';
+
 
 @Component({
   selector: 'app-aeronave',
   templateUrl: './aeronave.component.html',
   styleUrls: ['./aeronave.component.css'],
 })
-export class AeronaveComponent implements OnInit{
+export class AeronaveComponent implements OnInit {
 
-  aeronave = {} as Aeronave;
-  listaMarcas: string[] = utils.marcasAsSelect();
-  alertShow = false;
-  alertMessage: string = '';
+  readonly TAMANHO_LIMITE_DESCRICAO: number = 255;
 
-  constructor(private routerActive: ActivatedRoute,private aeronaveService: AeronaveService
-  ) {
-  }
-
-
-  ngOnInit(): void {
-   let id = this.routerActive.snapshot.paramMap.get('id');
-
-    if (id != null) {
-      this.aeronaveService.getAeronave(id).subscribe((data) => {
-        this.aeronave.id = data.id;
-        this.aeronave.marca = data.marca;
-        this.aeronave.nome = data.nome;
-        this.aeronave.ano = data.ano;
-        this.aeronave.vendido = data.vendido;
-        this.aeronave.descricao = data.descricao;
-      });
-    }
-  }
+  idEdicao: number = 0;
+  listaMarcas: string[] = AeronaveUtils.marcasAsSelect();
 
   formulario: FormGroup = new FormGroup({
-
-    nome: new FormControl(null, Validators.required),
+    nome: new FormControl(null, [Validators.required, Validators.maxLength(30)]),
     marca: new FormControl(null, Validators.required),
     ano: new FormControl(null, [Validators.required, Validators.min(1920), Validators.max(2022)]),
     vendido: new FormControl(null, Validators.required),
-    descricao: new FormControl(null),
-
+    descricao: new FormControl(null, Validators.maxLength(this.TAMANHO_LIMITE_DESCRICAO)),
   });
 
+  constructor(private routerActive: ActivatedRoute, private aeronaveService: AeronaveService) { }
 
-
-  validacaoForm() {
-    if (this.aeronave.ano <= 1920 || this.aeronave.ano > 2022) {
-      this.alertMessage = `Ano inválido voce digitou ${this.aeronave.ano}, digite um ano no intervalo de 1920 a 2022 `;
-      this.alertShow = true;
-      return true;
-    }
-    this.alertShow = false;
-    return false;
+  ngOnInit(): void {
+    this.inicializarFormularioEdicao();
   }
 
   salvarAeronave() {
-    if (this.validacaoForm()) {
-      return;
+    AeronaveUtils.validarTodosForms(this.formulario);
+
+    if (this.formulario.valid) {
+      if (this.idEdicao) {
+        /* Atuzalizando ou editando se o usuário existir*/
+        this.aeronaveService.updateAeronave(this.idEdicao, this.formulario.value).subscribe((data) => {
+          alert('Registro Atualizado');
+
+        });
+      } else {
+        //salvando
+        this.aeronaveService.salvarAeronave(this.formulario.value).subscribe((data) => {
+          alert('Aeronave cadastrada com sucesso');
+          this.novo();
+        });
+      }
     }
-
-    if(this.formulario.valid){
-    if (this.aeronave.id != null && this.aeronave.id.toString().trim() != null
-    ) {
-      /* Atuzalizando ou editando se o usuário existir*/
-      this.aeronaveService.updateAeronave(this.aeronave.id,this.formulario.value).subscribe((data) => {
-        alert('Registro Atualizado');
-
-      });
-    } else {
-      //salvando
-      this.aeronaveService.salvarAeronave(this.formulario.value).subscribe((data) => {
-        alert('Aeronave cadastrada com sucesso');
-        this.novo();
-      });
-    }
-  }
-
-  if  (this.ano.errors?['min'] || this.ano.errors:['max']) {
-    alert("Campo ano está inválido digite um valor entre o intervalo de 1920 a 2022");
- } else if (this.ano.errors?.['required']) {
-  alert("Campo ano está inválido digite um valor entre o intervalo de 1920 a 2022");
- }
-
-
 
   }
 
   novo() {
-    this.aeronave = new Aeronave();
     this.formulario.reset();
-    this.alertShow = false;
   }
 
+  private inicializarFormularioEdicao() {
+    const id = this.routerActive.snapshot.paramMap.get('id');
 
-get ano(): FormControl {
-  return this.formulario.get('ano') as FormControl;
-}
+    if (id) {
+      this.idEdicao = Number(id);
 
+      this.aeronaveService.getAeronave(this.idEdicao).subscribe((data) => {
+        this.formulario.patchValue(data);
+      });
+    }
+  }
 
 }

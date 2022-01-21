@@ -1,4 +1,4 @@
-import {  HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Injectable, NgModule } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import HttpErrorMensagem from '../model/http-erro';
@@ -10,6 +10,7 @@ import MensagemErro from '../model/mensagem-erro';
 export class HandlerInterceptorService implements HttpInterceptor {
 
   constructor() { }
+
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     return next.handle(req).pipe(
@@ -17,33 +18,33 @@ export class HandlerInterceptorService implements HttpInterceptor {
 
         const erroArray: string[] = [];
 
-        const erros:any = err.error?.objects;
+        const erros: any = err.error?.objects || [];
 
         erros.forEach((element: { userMessage: string; }) => {
           erroArray.push(element.userMessage)
         });
 
-        const log = 'Título: ' + err?.error?.title + '\nDetalhe: ' + err.error?.detail + '\nErros: \n' + erroArray.join(".\n") ;
+        const log = 'Título: ' + err?.error?.title + '\nDetalhe: ' + err.error?.detail + '\nErros: \n' + erroArray.join(".\n");
 
         alert(log);
-        return throwError(err);
+        return throwError(() => err);
 
       }));
   }
 
-  }
+}
 
-  @NgModule({
-    providers: [{
-      provide: HTTP_INTERCEPTORS,
-      useClass: HandlerInterceptorService,
-      multi: true,
-    },
+@NgModule({
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: HandlerInterceptorService,
+    multi: true,
+  },
   ],
-  })
+})
 
-  @Injectable({
-    providedIn: 'root',
-  })
+@Injectable({
+  providedIn: 'root',
+})
 
-export class HttpInterceptorModule {}
+export class HttpInterceptorModule { }

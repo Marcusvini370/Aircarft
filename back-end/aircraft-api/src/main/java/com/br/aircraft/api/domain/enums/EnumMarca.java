@@ -17,7 +17,7 @@ public enum EnumMarca {
 	this.marca = string;
 	}
 
-	public static boolean validarMarca(String inputMarca){
+	public static boolean isValidarMarca(String inputMarca){
 		
 		for (EnumMarca item : EnumMarca.values()) {
 			if(item.marca.equals(inputMarca) ) {

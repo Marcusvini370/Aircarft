@@ -90,8 +90,4 @@ pdfRelatorioVendidas() {
   });
 }
 
-
-
-
-
 }
