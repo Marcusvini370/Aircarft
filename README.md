@@ -75,7 +75,7 @@ npm install
 Para iniciar o angular digite o seguinte comando no terminal:
 
 ```bash
-npm serve
+ng serve
 ```
 
 <strong>Obs:</Strong> para rodar o frontend com o backend localmente, a baseServidor encontrada no arquivo
