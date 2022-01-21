@@ -4,7 +4,7 @@ e no frontend foi usado o framework angular na versão 13, o projeto tem tratame
 
 <br>
 
-## 🔖 <h1 align="center">Tela Principal</h1>
+##  <h1 align="center">🔖 Tela Principal</h1>
 
 ![image](https://user-images.githubusercontent.com/51136557/150533726-9780a98a-304e-4f87-afb3-246838f9bec3.png)
 
