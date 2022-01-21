@@ -6,7 +6,7 @@ e no frontend foi usado o framework angular na versão 13, o projeto tem tratame
 
 ##  <h1 align="center">🔖 Tela Principal / link de acesso</h1>
 
-Você pode visualizar o layout do projeto através desse link https://marcus-aircraft.netlify.app/ ,é necessário esperar alguns segundos para que o banco de carregue.
+Você pode visualizar o layout do projeto através desse link https://marcus-aircraft.netlify.app/ ,é necessário esperar alguns segundos para que o banco de dados carregue.
 
 ![image](https://user-images.githubusercontent.com/51136557/150533726-9780a98a-304e-4f87-afb3-246838f9bec3.png)
 
