@@ -5,12 +5,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AeronaveComponent } from './componentes/aeronave/aeronave.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ListAeronavesComponent } from './componentes/list-aeronaves/list-aeronaves.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MensagemValidacaoComponent } from './componentes/mensagem-valida/mensagem-validacao.component';
 
 export const appRouters: Routes = [
   { path: 'aeronave', component: AeronaveComponent },
@@ -23,7 +24,7 @@ export const routes: ModuleWithProviders<any> =
   RouterModule.forRoot(appRouters);
 
 @NgModule({
-  declarations: [AppComponent, AeronaveComponent, ListAeronavesComponent],
+  declarations: [AppComponent, AeronaveComponent, ListAeronavesComponent, MensagemValidacaoComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -34,6 +35,8 @@ export const routes: ModuleWithProviders<any> =
     routes,
     HttpInterceptorModule,
     NgxPaginationModule,
+    ReactiveFormsModule
+
   ],
   providers: [],
   bootstrap: [AppComponent],

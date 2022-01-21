@@ -21,13 +21,12 @@
     <div class="ml-2"> {{alertMessage}}</div>
   </div>
 
-  <form #formValidation="ngForm" >
+  <form [formGroup]="formulario" (ngSubmit)="salvarAeronave()">
     <div class="form-row mt-5">
 
     <div class="form-group col-md-6 offset-md-3">
       <label for="marca">Marca</label>
-      <span class="text-danger" *ngIf="marcaValidate.invalid"> *</span>
-      <select  #marcaValidate="ngModel" id="marca" name="marca" [(ngModel)]="aeronave.marca"
+      <select pInputText formControlName="marca" id="tx-marca" name="marca"
          class="form-control" required="true">
         <option selected [ngValue]="undefined"> [--Selecione--]</option>
         <option [ngValue]="marca" *ngFor="let marca of listaMarcas">{{marca}}</option>
@@ -39,8 +38,10 @@
     <div class="form-row">
     <div class="form-group col-md-6 offset-md-3">
     <label for="nome">Modelo</label>
-    <span  class="text-danger" *ngIf="nomeValidate.invalid"> *</span>
-    <input type="text" #nomeValidate="ngModel" [(ngModel)]="aeronave.nome"   name="Nome" id="nome" class="form-control" required="true" autocomplete="false"/>
+    <input type="text"  pInputText formControlName="nome"  name="Nome" id="tx-nome" class="form-control" required autocomplete="false"/>
+    <app-mensagem-validacao formControlName="nome" alertType="warn" type="text" errorMessage="Modelo é obrigatório"></app-mensagem-validacao>
+    <app-mensagem-validacao formControlName="nome"></app-mensagem-validacao>
+
     </div>
 
     </div>
@@ -49,14 +50,12 @@
 
     <div class="form-group col-md-3 offset-md-3">
       <label for="ano">Ano</label>
-      <span class="text-danger" *ngIf="anoValidate.invalid"> *</span>
-      <input type="number" #anoValidate="ngModel" [(ngModel)]="aeronave.ano" id="ano" name=ano class="form-control" required="true" autocomplete="false" min="1960" max="2022"/>
+      <input type="number" pInputText formControlName="ano" id="tx-ano" name=ano class="form-control" required autocomplete="false" min="1960" max="2022"/>
     </div>
 
     <div class="form-group col-md-3 offset-md-0">
       <label for="vendido">Vendido</label>
-      <span class="text-danger" *ngIf="vendidoValidate.invalid"> *</span>
-      <select #vendidoValidate="ngModel"  id="vendido" name="vendido" [(ngModel)]="aeronave.vendido"
+      <select   id="tx-vendido" name="vendido" pInputText formControlName="vendido"
          class="form-control" required="true">
          <option selected [ngValue]="undefined"> [--Selecione--]</option>
         <option [ngValue]="true">Vendido</option>
@@ -68,7 +67,7 @@
      <div class="form-row">
       <div class="form-group col-md-6 offset-md-3">
         <label for="floatingTextarea">Descrição</label>
-        <textarea class="form-control" [(ngModel)]="aeronave.descricao" name="descricao" placeholder="Descrição da aronave" id="floatingTextarea"></textarea>
+        <textarea class="form-control"pInputText formControlName="descricao" name="descricao" placeholder="Descrição da aronave" id="tx-descricao"></textarea>
 
       </div>
       </div>
@@ -76,10 +75,10 @@
       <div class="form-row ">
         <div class="form-group col-md-4 offset-md-3">
 
-          <button type="submit" (click)="salvarAeronave()"  class="btn btn-success" >
+          <button type="submit"  class="btn btn-success" >
             Salvar
           </button>
-
+              <!-- [disabled]="formulario.invalid" -->
           <button type="button" (click)="novo()" class="btn btn-primary  ml-2">
             Novo
           </button>
