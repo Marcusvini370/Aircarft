@@ -4,16 +4,14 @@ e no frontend foi usado o framework angular na versão 13, o projeto tem tratame
 
 <br>
 
-## 🔖 Tela Principal / Link de acesso 
+## 🔖 Tela Principal
 
-Você pode visualizar o layout do projeto através desse link https://marcus-aircraft.netlify.app/ , é necessário esperar alguns segundos para que o banco de dados carregue.
-
-![image](https://user-images.githubusercontent.com/51136557/150234175-13c1a353-f25f-4e6d-9bc8-97c8c0ff3f2d.png)
+![image](https://user-images.githubusercontent.com/51136557/150533726-9780a98a-304e-4f87-afb3-246838f9bec3.png)
 
 <br>
 
 ## Tela de Cadastro de Aeronvave
-![image](https://user-images.githubusercontent.com/51136557/150211100-a32abb7a-525c-4b81-b62a-a600f9583dc2.png)
+![image](https://user-images.githubusercontent.com/51136557/150533779-420a272e-8d70-4c62-b3b1-f21c44fea904.png)
 
 <br>
 
@@ -22,6 +20,12 @@ Você pode visualizar o layout do projeto através desse link https://marcus-air
 A documentação da api pode ser acessada pelo seguinte site: https://marcus-aircraft.herokuapp.com/aircraft/swagger-ui.html .
 
 ![image](https://user-images.githubusercontent.com/51136557/150211245-5ed31969-ec45-47cd-9768-ad0e260650aa.png)
+
+<br>
+
+## Demonstração do projeto
+
+![macro-rolagem](https://user-images.githubusercontent.com/51136557/150537915-059dc90c-2340-4981-9381-0b91a272b5f6.gif)
 
 <br>
 
@@ -35,6 +39,7 @@ A documentação da api pode ser acessada pelo seguinte site: https://marcus-air
 - ngx-pagination
 - Swagger
 - ModelMapper
+- Jasperreports
 
 <br>
 

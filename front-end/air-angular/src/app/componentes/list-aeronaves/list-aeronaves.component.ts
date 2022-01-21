@@ -63,6 +63,7 @@ export class ListAeronavesComponent implements OnInit {
   consultaModelo() {
     if (this.nome) {
       this.aeronaveService.consultarAeronavePorPage(this.nome, this.p - 1).subscribe((data) => this.aplicarPaginacaoComPesquisa(data));
+      this.p = 1;
     } else {
       this.aeronaveService.getAeronaveListPage(this.p - 1).subscribe((data) => this.aplicarPaginacao(data));
     }
@@ -84,7 +85,7 @@ export class ListAeronavesComponent implements OnInit {
   consultarComPaginaValida(pagina: number) {
     this.p = pagina;
     this.aeronaveService
-      .consultarAeronavePorPage(this.nome, this.p = 0)
+      .consultarAeronavePorPage(this.nome, this.p = 1)
       .subscribe((data) => this.aplicarPaginacao(data));
   }
 
