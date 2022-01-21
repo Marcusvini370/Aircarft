@@ -71,23 +71,6 @@
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>${springfox.version}</version>
 		</dependency>
-		<dependency>
-				    <groupId>net.sf.jasperreports</groupId>
-				    <artifactId>jasperreports</artifactId>
-				    <version>6.17.0</version>
-				</dependency>
-				
-				<dependency>
-			<groupId>io.rest-assured</groupId>
-			<artifactId>rest-assured</artifactId>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
-		</dependency>
 		
 	</dependencies>
 

@@ -4,18 +4,18 @@ e no frontend foi usado o framework angular na versão 13, o projeto tem tratame
 
 <br>
 
-## 🔖 Tela Principal
+## 🔖 <h1 align="center">Tela Principal</h1>
 
 ![image](https://user-images.githubusercontent.com/51136557/150533726-9780a98a-304e-4f87-afb3-246838f9bec3.png)
 
 <br>
 
-## Tela de Cadastro de Aeronvave
+## <h1 align="center">Tela de Cadastro de Aeronvave</h1>
 ![image](https://user-images.githubusercontent.com/51136557/150533779-420a272e-8d70-4c62-b3b1-f21c44fea904.png)
 
 <br>
 
-## Endpoints do projeto documentados no Swagger com Springfox!
+## <h1 align="center">Endpoints do projeto documentados no Swagger com Springfox!</h1>
 
 A documentação da api pode ser acessada pelo seguinte site: https://marcus-aircraft.herokuapp.com/aircraft/swagger-ui.html .
 
@@ -23,7 +23,7 @@ A documentação da api pode ser acessada pelo seguinte site: https://marcus-air
 
 <br>
 
-## Demonstração do projeto
+## <h1 align="center">Demonstração do projeto</h1>
 
 ![macro-rolagem](https://user-images.githubusercontent.com/51136557/150537915-059dc90c-2340-4981-9381-0b91a272b5f6.gif)
 
@@ -40,6 +40,7 @@ A documentação da api pode ser acessada pelo seguinte site: https://marcus-air
 - Swagger
 - ModelMapper
 - Jasperreports
+- Junit
 
 <br>
 
