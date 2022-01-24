@@ -58,7 +58,7 @@ git clone https://github.com/Marcusvini370/Aircarft.git
 
 Depois que o projeto foi clonado no seu ambiente, importe o projeto back-end para sua ide como o intelij, sts ou outra, instale as dependências dele, após isso é necessário criar um banco de dados no postgreSQL com o nome aircraft, após isso é só rodar ele na ide que estará funcionando.
 
-<strong>Obs:</strong> o nome do banco de dados pode ser alterado no arquivo application.properties para o de prefeência se preferir.
+<strong>Obs:</strong> o nome do banco de dados pode ser alterado no arquivo application.properties para o de preferência se preferir.
 
 Link da api hospedada no heroku:
 
@@ -68,7 +68,7 @@ http://marcus-aircraft.herokuapp.com/aircraft/aeronaves
 
 #### Frontend
 
-Abra o projeto front-end no visual studio ou no de prefeência e entre na pasta do angular com o terminal para rodar o comando:
+Abra o projeto front-end no visual studio ou no de preferência e entre na pasta do angular com o terminal para rodar o comando:
 
 ```bash
 npm install
